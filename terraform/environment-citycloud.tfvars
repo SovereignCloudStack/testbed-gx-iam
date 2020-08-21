@@ -1,0 +1,6 @@
+cloud_provider            = "citycloud"
+availability_zone         = "nova"
+network_availability_zone = "nova"
+flavor_manager            = "8C-32GB-150GB"
+image                     = "Ubuntu 18.04 Bionic Beaver"
+public                    = "ext-net"

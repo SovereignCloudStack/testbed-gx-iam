@@ -1,0 +1,85 @@
+---
+##########################################################
+# ansible
+
+ansible_become: true
+ansible_become_user: root
+
+##########################################################
+# images
+
+docker_registry: quay.io
+kolla_base_distro: ubuntu
+kolla_install_type: source
+openstack_release: ussuri
+
+##########################################################
+# kolla
+
+config_strategy: COPY_ALWAYS
+node_custom_config: "{{ configuration_directory }}/environments/kolla/files/overlays"
+
+kolla_enable_sanity_checks: "yes"
+
+##########################################################
+# haproxy
+
+kolla_internal_fqdn: api.osism.local
+
+kolla_enable_tls_external: "no"
+kolla_enable_tls_internal: "no"
+
+haproxy_client_timeout: 5m
+haproxy_server_timeout: 5m
+
+##########################################################
+# networking
+
+# NOTE: The configuration of the network interfaces to be used should be done via the inventory.
+
+##########################################################
+# docker
+
+docker_namespace: osism
+docker_restart_policy_retry: 0
+
+##########################################################
+# openstack
+
+# enable services
+
+enable_horizon: "yes"
+enable_keystone: "yes"
+
+# disable services
+
+enable_chrony: "no"
+enable_fluentd: "no"
+enable_openstack_core: "no"
+enable_placement: "no"
+enable_prometheus: "no"
+
+# generic
+
+# NOTE: This has to be "False", not "false"!
+openstack_logging_debug: "False"
+openstack_service_workers: 5
+
+# profiling
+enable_osprofiler: "no"
+
+# logging
+enable_central_logging: "no"
+
+# rabbitmq
+
+rabbitmq_server_additional_erl_args: "+S 1:1"
+
+# horizon
+horizon_backend_database: "yes"
+
+# keystone
+keystone_token_provider: "fernet"
+
+##########################################################
+# other

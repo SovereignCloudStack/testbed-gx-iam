@@ -1,0 +1,6 @@
+cloud_provider            = "ovh"
+availability_zone         = "nova"
+network_availability_zone = "nova"
+flavor_manager            = "c2-15"
+image                     = "Ubuntu 18.04"
+public                    = "Ext-Net"

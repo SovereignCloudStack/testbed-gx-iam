@@ -1,0 +1,19 @@
+---
+##########################
+# dotfiles
+
+dotfiles_repo: "https://github.com/osism/dotfiles.git"
+dotfiles_repo_version: master
+dotfiles_repo_local_destination: "~/dotfiles"
+dotfiles_files:
+  - .tmux.conf
+
+##########################
+# patchman-client
+
+patchman_client_host: "{{ hostvars['testbed-iam-manager.osism.local']['ansible_' + management_interface]['ipv4']['address'] }}"
+
+##########################
+# zabbix-agent
+
+zabbix_agent_server: "{{ hostvars['testbed-iam-manager.osism.local']['ansible_' + management_interface]['ipv4']['address'] }}"

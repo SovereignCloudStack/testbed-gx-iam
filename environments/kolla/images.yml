@@ -1,0 +1,5 @@
+---
+# NOTE: Currently only the Zun images from Ussuri/Master are working.
+#       Can be changed if Ussuri images are available.
+
+zun_tag: latest

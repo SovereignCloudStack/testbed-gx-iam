@@ -1,0 +1,38 @@
+---
+name: Verify terraform
+
+on:
+  push:
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/terraform.yml'
+  pull_request:
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/terraform.yml'
+
+jobs:
+  default:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        terraform-version:
+          - 0.12.29
+          - 0.13.0
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ matrix.terraform-version }}
+      - name: Terraform init
+        run: terraform init
+        working-directory: ./terraform
+      - name: Terraform format
+        run: terraform fmt -check
+        working-directory: ./terraform
+      - name: Terraform validate
+        run: terraform validate
+        working-directory: ./terraform

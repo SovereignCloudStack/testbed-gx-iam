@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import json
+import netifaces
+
+NETWORKS = {
+    'external': '192.168.90',
+    'internal': '192.168.50',
+    'management': '192.168.40',
+    'storage_frontend': '192.168.70',
+    'storage_backend': '192.168.80',
+    'provider': '192.168.100'
+}
+
+result = {}
+
+for interface in netifaces.interfaces():
+    if interface in ['lo', 'docker0', 'ohm0']:
+        continue
+    elif interface.startswith('br'):
+        continue
+    elif interface.startswith('ovs'):
+        continue
+    elif interface.startswith('vxlan'):
+        continue
+    elif interface.startswith('veth'):
+        continue
+    elif interface.startswith('tap'):
+        continue
+    elif interface.startswith('qg'):
+        continue
+
+    addrs = netifaces.ifaddresses(interface)
+    if netifaces.AF_INET in addrs:
+        addr = addrs[netifaces.AF_INET][0]['addr']
+
+        for network in NETWORKS:
+            if addr.startswith(NETWORKS[network]):
+                result[network] = interface
+
+    # NOTE: After a reboot of the nodes the provider network has
+    #       no more IP configuration.
+    else:
+        result['provider'] = interface
+
+print(json.dumps(result))

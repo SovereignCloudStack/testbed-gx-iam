@@ -1,0 +1,52 @@
+---
+##########################################################
+# ansible
+
+ansible_host: 192.168.40.5
+
+##########################################################
+# netbox
+
+netbox_inventory_status: Active
+
+##########################################################
+# generic
+
+console_interface: "{{ ansible_local.testbed_network_devices.management }}"
+management_interface: "{{ ansible_local.testbed_network_devices.management }}"
+
+internal_address: 192.168.40.5
+fluentd_host: 192.168.40.5
+
+##########################################################
+# cockpit
+
+configure_cockpit_server: yes
+cockpit_host: "{{ hostvars[inventory_hostname]['ansible_' + console_interface]['ipv4']['address'] }}"
+cockpit_ssh_interface: "{{ ansible_local.testbed_network_devices.management }}"
+
+##########################################################
+# netdata
+
+netdata_host_type: server
+
+##########################################################
+# network
+
+network_allow_service_restart: no
+network_restart_method: nothing
+
+network_interfaces:
+  - device: "{{ ansible_local.testbed_network_devices.management }}"
+    auto: true
+    family: inet
+    method: static
+    address: 192.168.40.5
+    netmask: 255.255.255.0
+    gateway: 192.168.40.1
+    mtu: 1450
+
+##########################################################
+# kolla
+
+network_interface: "{{ ansible_local.testbed_network_devices.management }}"

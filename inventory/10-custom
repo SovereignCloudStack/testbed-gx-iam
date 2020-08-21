@@ -1,0 +1,5 @@
+##########################################################
+# custom host groups
+
+[testbed-manager]
+testbed-iam-manager.osism.local

@@ -1,0 +1,74 @@
+---
+##########################
+# configuration
+
+configuration_directory: /opt/configuration
+
+configuration_type: git
+configuration_git_version: master
+configuration_git_host: github.com
+configuration_git_port: 443
+configuration_git_repository: SovereignCloudStack/testbed-iam.git
+configuration_git_protocol: https
+
+##########################
+# docker
+
+docker_user: "{{ operator_user }}"
+
+docker_configure_storage_driver: yes
+docker_storage_driver: overlay2
+
+ceph_docker_registry: index.docker.io
+docker_registry: index.docker.io
+docker_registry_ansible: quay.io
+
+##########################
+# docker-compose
+
+docker_compose_install_type: package
+
+##########################
+# versions
+
+docker_version: "5:19.03.5"
+repository_version: latest
+
+##########################
+# operator
+
+operator_authorized_keys:
+  - "{{lookup('file', '/ansible/secrets/id_rsa.operator.pub')}}"
+
+##########################
+# resolvconf
+
+resolvconf_nameserver:
+  - 9.9.9.9
+  - 149.112.112.112
+resolvconf_search: osism.local
+resolvconf_package: ""
+
+##########################
+# hosts
+
+hosts_type: template
+hosts_additional_entries:
+  api.osism.local: 192.168.40.200
+
+##########################
+# common
+
+cleanup_services:
+  - NetworkManager
+  - iscsid
+  - lxcfs
+  - nscd
+  - ntp
+  - networkd-dispatcher
+  - systemd-networkd
+
+##########################
+# kolla
+
+kolla_internal_vip_address: 192.168.40.200
