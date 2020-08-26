@@ -92,6 +92,7 @@ resource "openstack_networking_network_v2" "net_management" {
 }
 
 resource "openstack_networking_subnet_v2" "subnet_management" {
+  name            = "${var.prefix}-management"
   network_id      = openstack_networking_network_v2.net_management.id
   cidr            = "192.168.40.0/24"
   ip_version      = 4
@@ -104,6 +105,7 @@ resource "openstack_networking_subnet_v2" "subnet_management" {
 }
 
 resource "openstack_networking_port_v2" "vip_port" {
+  name       = "${var.prefix}-manager"
   network_id = openstack_networking_network_v2.net_management.id
 
   fixed_ip {
@@ -117,6 +119,7 @@ data "openstack_networking_network_v2" "public" {
 }
 
 resource "openstack_networking_router_v2" "router" {
+  name                    = var.prefix
   external_network_id     = data.openstack_networking_network_v2.public.id
   availability_zone_hints = [var.network_availability_zone]
 }
