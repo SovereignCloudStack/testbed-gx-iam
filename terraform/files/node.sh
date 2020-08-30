@@ -2,9 +2,6 @@
 
 echo '* libraries/restart-without-asking boolean true' | debconf-set-selections
 
-apt-get install --yes python3-netifaces
-python3 /root/configure-network-devices.py
-
 chown -R ubuntu:ubuntu /home/ubuntu/.ssh
 
 add-apt-repository --yes ppa:ansible/ansible
