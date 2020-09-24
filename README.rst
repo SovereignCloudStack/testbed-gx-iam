@@ -27,7 +27,8 @@ Webinterfaces & API endpoints
 =============================
 
 The web interfaces and API endpoints can also be accessed externally via
-the assigned floating IP address of the instance.
+the assigned floating IP address of the instance (run
+``make endpoints ENVIRONMENT=betacloud``).
 
 ================ =========================== ========= ================
 Name             URL                         Username  Password
