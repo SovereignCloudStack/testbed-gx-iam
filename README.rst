@@ -22,6 +22,7 @@ Usage
   is possible
 * For access to the web interfaces and API endpoints a tunnel can be created with
   ``make sshuttle ENVIRONMENT=betacloud`` (``sshuttle`` must be installed)
+* Add ``192.168.16.9 keystone.osism.test`` to your local ``/etc/hosts`` file
 
 Webinterfaces & API endpoints
 =============================

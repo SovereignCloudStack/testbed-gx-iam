@@ -4,7 +4,7 @@ clouds:
     auth:
       username: admin
       project_name: admin
-      auth_url: http://api.osism.test:5000/v3
+      auth_url: http://keystone.osism.test:5000/v3
       project_domain_name: default
       user_domain_name: default
     identity_api_version: 3
