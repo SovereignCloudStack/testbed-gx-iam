@@ -9,9 +9,9 @@ sudo -iu dragon ansible-galaxy install git+https://github.com/osism/ansible-dock
 sudo -iu dragon ansible-galaxy install git+https://github.com/osism/ansible-docker-compose
 sudo -iu dragon ansible-galaxy install git+https://github.com/osism/ansible-manager
 
-sudo -iu dragon ansible-playbook -i testbed-iam-manager.osism.local, /opt/manager-part-1.yml
-sudo -iu dragon ansible-playbook -i testbed-iam-manager.osism.local, /opt/manager-part-2.yml
-sudo -iu dragon ansible-playbook -i testbed-iam-manager.osism.local, /opt/manager-part-3.yml
+sudo -iu dragon ansible-playbook -i testbed-iam-manager.osism.test, /opt/manager-part-1.yml
+sudo -iu dragon ansible-playbook -i testbed-iam-manager.osism.test, /opt/manager-part-2.yml
+sudo -iu dragon ansible-playbook -i testbed-iam-manager.osism.test, /opt/manager-part-3.yml
 
 sudo -iu dragon cp /home/dragon/.ssh/id_rsa.pub /opt/ansible/secrets/id_rsa.operator.pub
 

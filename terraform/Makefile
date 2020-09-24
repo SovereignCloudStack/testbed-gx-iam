@@ -46,14 +46,14 @@ ssh: .MANAGER_ADDRESS.$(ENVIRONMENT) .id_rsa.$(ENVIRONMENT)
 
 sshuttle: .MANAGER_ADDRESS.$(ENVIRONMENT) .id_rsa.$(ENVIRONMENT)
 	@source ./.MANAGER_ADDRESS.$(ENVIRONMENT); \
-	sshuttle --ssh-cmd "ssh -i .id_rsa.$(ENVIRONMENT) " -r $(SSH_USERNAME)@$$MANAGER_ADDRESS 192.168.40.0/24 192.168.50.0/24 192.168.90.0/24 192.168.100.0/24
+	sshuttle --ssh-cmd "ssh -i .id_rsa.$(ENVIRONMENT) " -r $(SSH_USERNAME)@$$MANAGER_ADDRESS 192.168.16.0/20
 
 console: .deploy.$(ENVIRONMENT)
 	@$(OPENSTACK) console log show testbed-iam-manager
 
 .deploy.$(ENVIRONMENT): init
 	@STAT=$$(terraform state list); \
-	if test -n "$$STAT"; then touch .deploy.$(ENVIRONMENT); else echo "use make deploy or deploy-infra or ...."; exit 1; fi
+	if test -n "$$STAT"; then touch .deploy.$(ENVIRONMENT); else echo "use make deploy"; exit 1; fi
 
 .MANAGER_ADDRESS.$(ENVIRONMENT): .deploy.$(ENVIRONMENT)
 	@MANAGER_ADDRESS=$$(terraform output manager_address); \
@@ -86,4 +86,4 @@ watch: .id_rsa.$(ENVIRONMENT) .MANAGER_ADDRESS.$(ENVIRONMENT)
 openstack: init
 	@$(OPENSTACK)
 
-PHONY: clean console sshuttle ssh dry-run list deploy deploy-infra deploy-ceph deploy-openstack watch openstack
+PHONY: clean console sshuttle ssh dry-run list deploy watch openstack

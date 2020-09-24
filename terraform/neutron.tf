@@ -87,20 +87,20 @@ resource "openstack_compute_secgroup_v2" "security_group_management" {
 ############
 
 resource "openstack_networking_network_v2" "net_management" {
-  name                    = "${var.prefix}-management"
+  name                    = "net-${var.prefix}-management"
   availability_zone_hints = [var.network_availability_zone]
 }
 
 resource "openstack_networking_subnet_v2" "subnet_management" {
-  name            = "${var.prefix}-management"
+  name            = "subnet-${var.prefix}-management"
   network_id      = openstack_networking_network_v2.net_management.id
-  cidr            = "192.168.40.0/24"
+  cidr            = "192.168.16.0/20"
   ip_version      = 4
-  dns_nameservers = ["9.9.9.9", "149.112.112.112"]
+  dns_nameservers = ["8.8.8.8", "9.9.9.9"]
 
   allocation_pool {
-    start = "192.168.40.100"
-    end   = "192.168.40.110"
+    start = "192.168.31.200"
+    end   = "192.168.31.250"
   }
 }
 
@@ -109,7 +109,7 @@ resource "openstack_networking_port_v2" "vip_port" {
   network_id = openstack_networking_network_v2.net_management.id
 
   fixed_ip {
-    ip_address = "192.168.40.200"
+    ip_address = "192.168.16.9"
     subnet_id  = openstack_networking_subnet_v2.subnet_management.id
   }
 }

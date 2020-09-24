@@ -44,9 +44,9 @@ operator_authorized_keys:
 # resolvconf
 
 resolvconf_nameserver:
+  - 8.8.8.8
   - 9.9.9.9
-  - 149.112.112.112
-resolvconf_search: osism.local
+resolvconf_search: osism.test
 resolvconf_package: ""
 
 ##########################
@@ -54,7 +54,7 @@ resolvconf_package: ""
 
 hosts_type: template
 hosts_additional_entries:
-  api.osism.local: 192.168.40.200
+  api.osism.test: 192.168.16.9
 
 ##########################
 # common
@@ -71,4 +71,4 @@ cleanup_services:
 ##########################
 # kolla
 
-kolla_internal_vip_address: 192.168.40.200
+kolla_internal_vip_address: 192.168.16.9
