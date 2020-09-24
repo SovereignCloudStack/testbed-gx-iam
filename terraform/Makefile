@@ -86,4 +86,14 @@ watch: .id_rsa.$(ENVIRONMENT) .MANAGER_ADDRESS.$(ENVIRONMENT)
 openstack: init
 	@$(OPENSTACK)
 
-PHONY: clean console sshuttle ssh dry-run list deploy watch openstack
+endpoints: init
+	@source ./.MANAGER_ADDRESS.$(ENVIRONMENT); \
+	echo "| ARA        | http://$$MANAGER_ADDRESS:8120  |"; \
+	echo "| Cockpit    | https://$$MANAGER_ADDRESS:8130 |"; \
+	echo "| Horizon    | http://$$MANAGER_ADDRESS       |"; \
+	echo "| Keycloak   | http://$$MANAGER_ADDRESS:8170  |"; \
+	echo "| Keystone   | http://$$MANAGER_ADDRESS:5000  |"; \
+	echo "| RabbitMQ   | http://$$MANAGER_ADDRESS:15672 |"; \
+	echo "| phpMyAdmin | http://$$MANAGER_ADDRESS:8110  |";
+
+PHONY: clean console sshuttle ssh dry-run list deploy watch openstack endpoints
