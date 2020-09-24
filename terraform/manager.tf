@@ -12,12 +12,12 @@ resource "openstack_networking_port_v2" "manager_port_management" {
   ]
 
   fixed_ip {
-    ip_address = "192.168.40.5"
+    ip_address = "192.168.16.5"
     subnet_id  = openstack_networking_subnet_v2.subnet_management.id
   }
 
   allowed_address_pairs {
-    ip_address = "192.168.40.200/32"
+    ip_address = "192.168.16.9/32"
   }
 }
 
@@ -39,47 +39,47 @@ packages:
 write_files:
   - content: ${openstack_compute_keypair_v2.key.public_key}
     path: /home/ubuntu/.ssh/id_rsa.pub
-    permissions: 0600
+    permissions: '0600'
   - content: |
       ${indent(6, openstack_compute_keypair_v2.key.private_key)}
     path: /home/ubuntu/.ssh/id_rsa
-    permissions: 0600
+    permissions: '0600'
   - content: |
       ${indent(6, file("files/node.yml"))}
     path: /opt/node.yml
-    permissions: 0644
+    permissions: '0644'
   - content: |
       ${indent(6, file("files/cleanup.yml"))}
     path: /opt/cleanup.yml
-    permissions: 0644
+    permissions: '0644'
   - content: |
       ${indent(6, file("files/cleanup.sh"))}
     path: /root/cleanup.sh
-    permissions: 0700
+    permissions: '0700'
   - content: |
       ${indent(6, file("files/manager-part-1.yml"))}
     path: /opt/manager-part-1.yml
-    permissions: 0644
+    permissions: '0644'
   - content: |
       ${indent(6, file("files/manager-part-2.yml"))}
     path: /opt/manager-part-2.yml
-    permissions: 0644
+    permissions: '0644'
   - content: |
       ${indent(6, file("files/manager-part-3.yml"))}
     path: /opt/manager-part-3.yml
-    permissions: 0644
+    permissions: '0644'
   - content: |
       ${indent(6, file("files/node.sh"))}
     path: /root/node.sh
-    permissions: 0700
+    permissions: '0700'
   - content: |
       ${indent(6, file("files/manager.sh"))}
     path: /root/manager.sh
-    permissions: 0700
+    permissions: '0700'
   - content: |
       ${indent(6, file("files/deploy.sh"))}
     path: /root/deploy.sh
-    permissions: 0700
+    permissions: '0700'
 runcmd:
   - "echo 'network: {config: disabled}' > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
   - "rm -f /etc/network/interfaces.d/50-cloud-init.cfg"

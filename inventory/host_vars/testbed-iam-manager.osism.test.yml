@@ -2,7 +2,7 @@
 ##########################################################
 # ansible
 
-ansible_host: 192.168.40.5
+ansible_host: 192.168.16.5
 
 ##########################################################
 # netbox
@@ -15,8 +15,8 @@ netbox_inventory_status: Active
 console_interface: "{{ ansible_local.testbed_network_devices.management }}"
 management_interface: "{{ ansible_local.testbed_network_devices.management }}"
 
-internal_address: 192.168.40.5
-fluentd_host: 192.168.40.5
+internal_address: 192.168.16.5
+fluentd_host: 192.168.16.5
 
 ##########################################################
 # cockpit
@@ -41,9 +41,9 @@ network_interfaces:
     auto: true
     family: inet
     method: static
-    address: 192.168.40.5
-    netmask: 255.255.255.0
-    gateway: 192.168.40.1
+    address: 192.168.16.5
+    netmask: 255.255.240.0
+    gateway: 192.168.16.1
     mtu: 1450
 
 ##########################################################
