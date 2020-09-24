@@ -26,11 +26,6 @@ until [[ "$(/usr/bin/docker inspect -f '{{.State.Health.Status}}' manager_ara-se
     sleep 1;
 done;
 
-# NOTE(berendt): wait for Netbox
-until [[ "$(/usr/bin/docker inspect -f '{{.State.Health.Status}}' manager_netbox-nginx_1)" == "healthy" ]]; do
-    sleep 1;
-done;
-
 /root/cleanup.sh
 
 # NOTE(berendt): sudo -E does not work here because sudo -i is needed
