@@ -1,0 +1,28 @@
+[
+  {
+    "local": [
+      {
+        "group": {
+          "domain": {
+            "name": "keycloak"
+          },
+          "name": "keycloak_users"
+        },
+        "user": {
+          "name": "{0}"
+        }
+      }
+    ],
+    "remote": [
+      {
+        "type": "OIDC-preferred_username"
+      },
+      {
+        "type": "HTTP_OIDC_ISS",
+        "any_one_of": [
+          "http://192.168.16.5:8170/auth/realms/keystone"
+        ]
+      }
+    ]
+  }
+]
