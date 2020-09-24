@@ -2,3 +2,13 @@
 
 # SESSION_TIMEOUT = 7200
 # OPENSTACK_ENABLE_PASSWORD_RETRIEVE = True
+
+WEBSSO_ENABLED = True
+WEBSSO_CHOICES = (
+    ("credentials", "Credentials"),
+    ("keycloak_openid", "Keycloak")
+)
+WEBSSO_IDP_MAPPING = {
+    "keycloak_openid": ("keycloak", "mapped")
+}
+WEBSSO_INITIAL_CHOICE = "credentials"
