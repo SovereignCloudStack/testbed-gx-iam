@@ -11,5 +11,8 @@
     configuration_git_repository: SovereignCloudStack/testbed-iam.git
     configuration_git_protocol: https
 
+  collections:
+    - osism.commons
+
   roles:
-    - ansible-configuration
+    - role: configuration

@@ -4,10 +4,16 @@ cp /home/ubuntu/.ssh/id_rsa /home/dragon/.ssh/id_rsa
 cp /home/ubuntu/.ssh/id_rsa.pub /home/dragon/.ssh/id_rsa.pub
 chown -R dragon:dragon /home/dragon/.ssh
 
-sudo -iu dragon ansible-galaxy install git+https://github.com/osism/ansible-configuration
 sudo -iu dragon ansible-galaxy install git+https://github.com/osism/ansible-docker
-sudo -iu dragon ansible-galaxy install git+https://github.com/osism/ansible-docker-compose
 sudo -iu dragon ansible-galaxy install git+https://github.com/osism/ansible-manager
+
+git clone https://github.com/osism/ansible-collection-commons.git /tmp/ansible-collection-commons
+( cd /tmp/ansible-collection-commons; ansible-galaxy collection build; sudo -iu dragon ansible-galaxy collection install -v -f -p /usr/share/ansible/collections osism-commons-*.tar.gz; )
+rm -rf /tmp/ansible-collection-commons
+
+git clone https://github.com/osism/ansible-collection-services.git /tmp/ansible-collection-services
+( cd /tmp/ansible-collection-services; ansible-galaxy collection build; sudo -iu dragon ansible-galaxy collection install -v -f -p /usr/share/ansible/collections osism-services-*.tar.gz; )
+rm -rf /tmp/ansible-collection-services
 
 sudo -iu dragon ansible-playbook -i testbed-iam-manager.osism.test, /opt/manager-part-1.yml
 sudo -iu dragon ansible-playbook -i testbed-iam-manager.osism.test, /opt/manager-part-2.yml

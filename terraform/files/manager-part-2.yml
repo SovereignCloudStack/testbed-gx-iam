@@ -10,12 +10,12 @@
     docker_configure_storage_driver: yes
     docker_storage_driver: overlay2
     docker_user: dragon
-    docker_version: "5:19.03.5"
+    docker_version: "5:19.03.12"
 
   roles:
     - ansible-docker
 
-- name: Apply role docker-compose
+- name: Apply role docker_compose
   hosts: testbed-iam-manager.osism.test
   connection: local
   gather_facts: true
@@ -23,5 +23,8 @@
   vars:
     docker_compose_install_type: package
 
+  collections:
+    - osism.commons
+
   roles:
-    - ansible-docker-compose
+    - role: docker_compose
