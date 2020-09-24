@@ -11,6 +11,18 @@ of the GAIA-X MVP WP.
 The testbed is based on the `testbed of the OSISM project <https://github.com/osism/testbed>`_.
 Documentation is available at https://docs.osism.de/testbed/.
 
+Usage
+=====
+
+* Create ``clouds.yaml`` and ``secure.yaml`` in the ``terraform`` directory
+* Execute ``make deploy ENVIRONMENT=betacloud`` within the ``terraform`` directory
+  (``betacloud`` is replaced with the CSP to be used)
+* The progress of the deployment can be checked with ``make console ENVIRONMENT=betacloud``
+* After completion of the deployment a login via ``make ssh ENVIRONMENT=betacloud``
+  is possible
+* For access to the web interfaces and API endpoints a tunnel can be created with
+  ``make sshuttle ENVIRONMENT=betacloud`` (``sshuttle`` must be installed)
+
 Webinterfaces & API endpoints
 =============================
 
