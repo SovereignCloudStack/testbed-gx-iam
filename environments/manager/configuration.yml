@@ -18,5 +18,4 @@ cockpit_host: "{{ hostvars[inventory_hostname]['ansible_' + console_interface]['
 ara_enable: true
 ara_server_host: "{{ hostvars[inventory_hostname]['ansible_' + console_interface]['ipv4']['address'] }}"
 
-netbox_enable: yes
-netbox_host: "{{ hostvars[inventory_hostname]['ansible_' + console_interface]['ipv4']['address'] }}"
+netbox_enable: no
