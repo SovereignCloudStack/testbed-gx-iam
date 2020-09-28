@@ -16,3 +16,26 @@
 
   roles:
     - role: configuration
+
+- name: Prepare configuration directory
+  hosts: testbed-iam-manager.osism.test
+  connection: local
+  gather_facts: false
+
+  vars:
+    endpoint: testbed-iam.osism.test
+
+  tasks:
+    - name: Find all of the files inside the configuration directory
+      find:
+        paths: /opt/configuration
+        patterns: "*"
+        recurse: true
+      register: files
+
+    - name: Set endpoint in all files
+      replace:
+        path: "{{ item.path }}"
+        regexp: testbed-iam.osism.test
+        replace: "{{ endpoint }}"
+      with_items: "{{ files.files }}"
