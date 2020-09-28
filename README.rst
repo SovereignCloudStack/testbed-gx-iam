@@ -1,8 +1,8 @@
-================================================
-SCS Identity and Access Management (IAM) testbed
-================================================
+=======================================================
+GAIA-X SCS Identity and Access Management (IAM) testbed
+=======================================================
 
-This testbed provides a minimized SCS manager node. By default MariaDB,
+This testbed provides a minimized GAIA-X SCS manager node. By default MariaDB, RabbitMQ,
 Keystone, Keyloak and Horizon are deployed.
 
 This testbed focuses on working with Keystone and Keycloak in the context
