@@ -57,6 +57,11 @@ write_files:
     path: /root/cleanup.sh
     permissions: '0700'
   - content: |
+      ---
+      endpoint: "${var.endpoint}"
+    path: /opt/manager.yml
+    permissions: '0644'
+  - content: |
       ${indent(6, file("files/manager-part-1.yml"))}
     path: /opt/manager-part-1.yml
     permissions: '0644'

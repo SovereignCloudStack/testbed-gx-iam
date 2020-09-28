@@ -33,8 +33,10 @@ variable "public" {
   type    = string
 }
 
-variable "configuration_version" {
-  default = "master"
+# testbed specific paramters
+
+variable "endpoint" {
+  default = "testbed-iam.osism.test"
   type    = string
 }
 
