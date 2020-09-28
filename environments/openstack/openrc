@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export OS_AUTH_URL=http://keystone.osism.test:5000/v3
+export OS_AUTH_URL=http://testbed-iam.osism.test:5000/v3
 export OS_PROJECT_NAME="admin"
 export OS_TENANT_NAME=$OS_PROJECT_NAME
 export OS_USERNAME="admin"
