@@ -6,21 +6,32 @@ OPENSTACK = openstack
 
 RESOURCE = openstack_networking_floatingip_v2.manager_floating_ip
 
+MINIO = 0
+
+# MINIO_ENDPOINT =
+# MINIO_ACCESS_KEY =
+# MINIO_SECRET_KEY =
+
 NEED_OSCLOUD := $(shell test -z "$$OS_PASSWORD" -a -z "$$OS_CLOUD" && echo 1 || echo 0)
 ifeq ($(NEED_OSCLOUD),1)
   export OS_CLOUD=$(ENVIRONMENT)
 endif
 
+ifeq ($(MINIO),1)
+  export AWS_ACCESS_KEY_ID=$(MINIO_ACCESS_KEY)
+  export AWS_SECRET_ACCESS_KEY=$(MINIO_SECRET_KEY)
+  export AWS_S3_ENDPOINT=$(MINIO_ENDPOINT)
+endif
+
 init:
 	@if [ ! -d .terraform/plugins ]; then \
+		if [ $(MINIO) -eq 1 ]; then \
+			cp minio.tf.disabled minio.tf; \
+		fi; \
 		terraform init; \
-	fi
+	fi; \
 
-	@if [ -d "terraform.tfstate.d/${ENVIRONMENT}" ]; then \
-		terraform workspace select ${ENVIRONMENT}; \
-	else \
-		terraform workspace new ${ENVIRONMENT}; \
-	fi
+	@terraform workspace select ${ENVIRONMENT} || terraform workspace new ${ENVIRONMENT}
 
 attach: init
 	@terraform import -var-file="environment-$(ENVIRONMENT).tfvars" $(RESOURCE) $(PARAMS)
@@ -42,6 +53,7 @@ clean: init
 	@terraform destroy -auto-approve -var-file="environment-$(ENVIRONMENT).tfvars" $(PARAMS)
 	@rm -f .deploy.$(ENVIRONMENT) .MANAGER_ADDRESS.$(ENVIRONMENT)
 	@rm -f .id_rsa.$(ENVIRONMENT)
+	@rm -f minio.tf
 	@terraform workspace select default
 	@terraform workspace delete $(ENVIRONMENT)
 
