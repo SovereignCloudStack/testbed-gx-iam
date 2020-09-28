@@ -54,7 +54,7 @@ resolvconf_package: ""
 
 hosts_type: template
 hosts_additional_entries:
-  testbed-iam.osism.test: 192.168.16.9
+  testbed-iam.osism.test: 192.168.16.5
 
 ##########################
 # common
