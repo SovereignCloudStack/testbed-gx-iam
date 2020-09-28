@@ -17,3 +17,4 @@ secure.yaml
 secure.yml
 terraform.tfstate*
 terraform.tfstate.d
+minio.tf
