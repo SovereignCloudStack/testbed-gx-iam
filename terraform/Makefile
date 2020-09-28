@@ -4,6 +4,8 @@ ENVIRONMENT = betacloud
 SSH_USERNAME = dragon
 OPENSTACK = openstack
 
+RESOURCE = openstack_networking_floatingip_v2.manager_floating_ip
+
 NEED_OSCLOUD := $(shell test -z "$$OS_PASSWORD" -a -z "$$OS_CLOUD" && echo 1 || echo 0)
 ifeq ($(NEED_OSCLOUD),1)
   export OS_CLOUD=$(ENVIRONMENT)
@@ -19,6 +21,12 @@ init:
 	else \
 		terraform workspace new ${ENVIRONMENT}; \
 	fi
+
+attach: init
+	@terraform import -var-file="environment-$(ENVIRONMENT).tfvars" $(RESOURCE) $(PARAMS)
+
+detach: init
+	@terraform state rm $(RESOURCE) $(PARAMS)
 
 dry-run: init
 	@terraform plan -var-file="environment-$(ENVIRONMENT).tfvars" $(PARAMS)
@@ -96,4 +104,4 @@ endpoints: init
 	echo "| RabbitMQ   | http://$$MANAGER_ADDRESS:15672 |"; \
 	echo "| phpMyAdmin | http://$$MANAGER_ADDRESS:8110  |";
 
-PHONY: clean console sshuttle ssh dry-run list deploy watch openstack endpoints
+PHONY: clean console attach detach sshuttle ssh dry-run list deploy watch openstack endpoints

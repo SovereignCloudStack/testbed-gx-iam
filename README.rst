@@ -25,6 +25,29 @@ Usage
 * Add ``192.168.16.9 testbed-iam.osism.test`` to your local ``/etc/hosts`` file
 * It is possible to customize ``testbed-iam.osism.test``, for this purpose add
   ``PARAMS="-var endpoint=somehost.example.com"``
+* It is possible to import an existing floating IP adress
+
+  .. code-block:: console
+
+     $ make attach ENVIRONMENT=betacloud PARAMS=4b041998-7c8d-4058-af01-f164e89c10bc
+     openstack_networking_floatingip_v2.manager_floating_ip: Importing from ID "4b041998-7c8d-4058-af01-f164e89c10bc"...
+     openstack_networking_floatingip_v2.manager_floating_ip: Import prepared!
+       Prepared openstack_networking_floatingip_v2 for import
+     openstack_networking_floatingip_v2.manager_floating_ip: Refreshing state... [id=4b041998-7c8d-4058-af01-f164e89c10bc]
+
+     Import successful!
+
+     The resources that were imported are shown above. These resources are now in
+     your Terraform state and will henceforth be managed by Terraform.
+
+  * After the import the address is managed by Terraform, if it should not be deleted by
+    a ``make clean``, the address must be removed from the Terraform state first
+
+    .. code-block:: console
+
+       $ make detach ENVIRONMENT=betacloud
+       Removed openstack_networking_floatingip_v2.manager_floating_ip
+       Successfully removed 1 resource instance(s).
 
 Webinterfaces & API endpoints
 =============================
