@@ -1,5 +1,5 @@
 ---
-name: Verify terraform
+name: Validate terraform
 
 on:
   push:
