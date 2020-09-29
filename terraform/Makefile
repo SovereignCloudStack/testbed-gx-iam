@@ -24,12 +24,8 @@ ifeq ($(MINIO),1)
 endif
 
 init:
-	@if [ ! -d .terraform/plugins ]; then \
-		if [ $(MINIO) -eq 1 ]; then \
-			cp minio.tf.disabled minio.tf; \
-		fi; \
-		terraform init; \
-	fi; \
+	@if [ $(MINIO) -eq 1 ]; then cp minio.tf.disabled minio.tf; fi
+	@if [ ! -d .terraform/plugins ]; then terraform init; fi
 
 	@terraform workspace select ${ENVIRONMENT} || terraform workspace new ${ENVIRONMENT}
 
