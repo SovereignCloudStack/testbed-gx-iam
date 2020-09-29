@@ -6,25 +6,16 @@ OPENSTACK = openstack
 
 RESOURCE = openstack_networking_floatingip_v2.manager_floating_ip
 
-MINIO = 0
-
-# MINIO_ENDPOINT =
-# MINIO_ACCESS_KEY =
-# MINIO_SECRET_KEY =
-
 NEED_OSCLOUD := $(shell test -z "$$OS_PASSWORD" -a -z "$$OS_CLOUD" && echo 1 || echo 0)
 ifeq ($(NEED_OSCLOUD),1)
   export OS_CLOUD=$(ENVIRONMENT)
 endif
 
-ifeq ($(MINIO),1)
-  export AWS_ACCESS_KEY_ID=$(MINIO_ACCESS_KEY)
-  export AWS_SECRET_ACCESS_KEY=$(MINIO_SECRET_KEY)
-  export AWS_S3_ENDPOINT=$(MINIO_ENDPOINT)
+ifneq (,$(wildcard ./minio.env))
+  include minio.env
 endif
 
 init:
-	@if [ $(MINIO) -eq 1 ]; then cp minio.tf.disabled minio.tf; fi
 	@if [ ! -d .terraform/plugins ]; then terraform init; fi
 
 	@terraform workspace select ${ENVIRONMENT} || terraform workspace new ${ENVIRONMENT}
