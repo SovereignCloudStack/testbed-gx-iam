@@ -53,9 +53,9 @@ clean: init
 	@terraform destroy -auto-approve -var-file="environment-$(ENVIRONMENT).tfvars" $(PARAMS)
 	@rm -f .deploy.$(ENVIRONMENT) .MANAGER_ADDRESS.$(ENVIRONMENT)
 	@rm -f .id_rsa.$(ENVIRONMENT)
-	@rm -f minio.tf
 	@terraform workspace select default
 	@terraform workspace delete $(ENVIRONMENT)
+	@rm -f minio.tf
 
 list: init
 	@terraform state list
