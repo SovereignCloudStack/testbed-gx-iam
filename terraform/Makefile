@@ -42,7 +42,6 @@ clean: init
 	@rm -f .id_rsa.$(ENVIRONMENT)
 	@terraform workspace select default
 	@terraform workspace delete $(ENVIRONMENT)
-	@rm -f minio.tf
 
 list: init
 	@terraform state list
