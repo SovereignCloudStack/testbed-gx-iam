@@ -16,6 +16,13 @@ resource "openstack_compute_secgroup_v2" "security_group_manager" {
   rule {
     cidr        = "0.0.0.0/0"
     ip_protocol = "tcp"
+    from_port   = 443
+    to_port     = 443
+  }
+
+  rule {
+    cidr        = "0.0.0.0/0"
+    ip_protocol = "tcp"
     from_port   = 5000
     to_port     = 5000
   }
