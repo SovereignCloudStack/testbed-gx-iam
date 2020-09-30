@@ -102,4 +102,8 @@ endpoints: init
 	echo "| RabbitMQ   | http://$$MANAGER_ADDRESS:15672 |"; \
 	echo "| phpMyAdmin | http://$$MANAGER_ADDRESS:8110  |";
 
-PHONY: clean console attach detach sshuttle ssh dry-run list deploy watch openstack endpoints
+create: deploy
+login: ssh
+log: console
+
+PHONY: clean console attach detach sshuttle ssh dry-run list deploy watch openstack endpoints create log login
