@@ -1,10 +1,10 @@
 ---
-name: Daily deployment
+name: Daily deployment (betacloud)
 
 on:
   push:
     paths:
-      - '.github/workflows/deploy-daily.yml'
+      - '.github/workflows/deploy-daily-betacloud.yml'
   schedule:
     - cron: '0 4 * * *'
 
