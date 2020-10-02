@@ -14,9 +14,19 @@ resource "openstack_networking_port_v2" "manager_port_management" {
     ip_address = "192.168.16.5"
     subnet_id  = openstack_networking_subnet_v2.subnet_management.id
   }
+}
+
+resource "openstack_networking_port_v2" "manager_port_internal" {
+  network_id         = openstack_networking_network_v2.net_internal.id
+  security_group_ids = [openstack_compute_secgroup_v2.security_group_internal.id]
+
+  fixed_ip {
+    ip_address = "192.168.32.5"
+    subnet_id  = openstack_networking_subnet_v2.subnet_internal.id
+  }
 
   allowed_address_pairs {
-    ip_address = "192.168.16.9/32"
+    ip_address = "192.168.32.9/32"
   }
 }
 
@@ -33,6 +43,7 @@ resource "openstack_compute_instance_v2" "manager_server" {
   key_pair          = openstack_compute_keypair_v2.key.name
 
   network { port = openstack_networking_port_v2.manager_port_management.id }
+  network { port = openstack_networking_port_v2.manager_port_internal.id }
 
   user_data = <<-EOT
 #cloud-config
@@ -41,6 +52,21 @@ package_upgrade: false
 packages:
   - ifupdown
 write_files:
+  - content: |
+      import subprocess
+      import netifaces
+
+      PORTS = {
+          "${openstack_networking_port_v2.manager_port_internal.mac_address}": "${openstack_networking_port_v2.manager_port_internal.all_fixed_ips[0]}",
+      }
+
+      for interface in netifaces.interfaces():
+          mac_address = netifaces.ifaddresses(interface)[netifaces.AF_LINK][0]['addr']
+          if mac_address in PORTS:
+              subprocess.run("ip addr add %s/20 dev %s" % (PORTS[mac_address], interface), shell=True)
+              subprocess.run("ip link set up dev %s" % interface, shell=True)
+    path: /root/configure-network-devices.py
+    permissions: '0600'
   - content: ${openstack_compute_keypair_v2.key.public_key}
     path: /home/ubuntu/.ssh/id_rsa.pub
     permissions: '0600'

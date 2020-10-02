@@ -52,7 +52,7 @@ ssh: .MANAGER_ADDRESS.$(ENVIRONMENT) .id_rsa.$(ENVIRONMENT)
 
 sshuttle: .MANAGER_ADDRESS.$(ENVIRONMENT) .id_rsa.$(ENVIRONMENT)
 	@source ./.MANAGER_ADDRESS.$(ENVIRONMENT); \
-	sshuttle --ssh-cmd "ssh -o StrictHostKeyChecking=no -i .id_rsa.$(ENVIRONMENT) " -r $(SSH_USERNAME)@$$MANAGER_ADDRESS 192.168.16.0/20
+	sshuttle --ssh-cmd "ssh -o StrictHostKeyChecking=no -i .id_rsa.$(ENVIRONMENT) " -r $(SSH_USERNAME)@$$MANAGER_ADDRESS 192.168.16.0/20 192.168.32.0/20
 
 console: .deploy.$(ENVIRONMENT)
 	@$(OPENSTACK) console log show testbed-gx-iam-manager
