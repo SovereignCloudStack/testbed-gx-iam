@@ -1,6 +1,6 @@
 ---
 - name: Apply role configuration
-  hosts: testbed-iam-manager.osism.test
+  hosts: testbed-gx-iam-manager.osism.test
   connection: local
   gather_facts: true
 
@@ -8,7 +8,7 @@
     ansible_python_interpreter: /usr/bin/python3
     configuration_git_host: github.com
     configuration_git_port: 443
-    configuration_git_repository: SovereignCloudStack/testbed-iam.git
+    configuration_git_repository: SovereignCloudStack/testbed-gx-iam.git
     configuration_git_protocol: https
 
   collections:
@@ -18,12 +18,12 @@
     - role: configuration
 
 - name: Prepare configuration directory
-  hosts: testbed-iam-manager.osism.test
+  hosts: testbed-gx-iam-manager.osism.test
   connection: local
   gather_facts: false
 
   vars:
-    endpoint: testbed-iam.osism.test
+    endpoint: testbed-gx-iam.osism.test
 
   tasks:
     - name: Find all of the files inside the configuration directory
@@ -36,6 +36,6 @@
     - name: Set endpoint in all files
       replace:
         path: "{{ item.path }}"
-        regexp: testbed-iam.osism.test
+        regexp: testbed-gx-iam.osism.test
         replace: "{{ endpoint }}"
       with_items: "{{ files.files }}"
