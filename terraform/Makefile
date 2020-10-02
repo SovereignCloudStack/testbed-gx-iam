@@ -99,7 +99,6 @@ endpoints: init
 	echo "| Horizon    | http://$$MANAGER_ADDRESS       |"; \
 	echo "| Keycloak   | http://$$MANAGER_ADDRESS:8170  |"; \
 	echo "| Keystone   | http://$$MANAGER_ADDRESS:5000  |"; \
-	echo "| RabbitMQ   | http://$$MANAGER_ADDRESS:15672 |"; \
 	echo "| phpMyAdmin | http://$$MANAGER_ADDRESS:8110  |";
 
 create: deploy

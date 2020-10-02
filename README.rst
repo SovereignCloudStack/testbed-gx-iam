@@ -3,7 +3,7 @@ GAIA-X SCS Identity and Access Management (IAM) testbed
 =======================================================
 
 This testbed provides a minimized GAIA-X Sovereign Cloud Stack (SCS) environment.
-By default MariaDB, RabbitMQ, Keystone, Keyloak and Horizon are deployed.
+By default MariaDB, Keystone, Keyloak and Horizon are deployed.
 
 It focuses on working with Keystone and Keycloak in the context
 of the GAIA-X MVP WP.
@@ -66,6 +66,5 @@ Horizon          http://192.168.16.9         admin     password
 Keycloak         http://192.168.16.5:8170    admin     password
 Keystone         http://192.168.16.9:35357   admin     password
 Keystone         http://192.168.16.9:5000    admin     password
-RabbitMQ         http://192.168.16.5:15672   openstack password
 phpMyAdmin       http://192.168.16.5:8110    root      password
 ================ =========================== ========= ================
