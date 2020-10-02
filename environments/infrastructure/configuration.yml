@@ -3,3 +3,8 @@
 # versions
 
 openstack_version: ussuri
+
+##########################
+# keycloak
+
+keycloak_host: 192.168.32.9

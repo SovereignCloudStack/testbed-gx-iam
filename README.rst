@@ -23,7 +23,7 @@ Usage
 * For access to the web interfaces and API endpoints a tunnel can be created with
   ``make ENVIRONMENT=betacloud tunnel`` (https://github.com/sshuttle/sshuttle must
   be installed)
-* Add ``192.168.32.9 testbed-gx-iam.osism.test`` to your local ``/etc/hosts`` file
+* Add ``192.168.16.9 testbed-gx-iam.osism.test`` to your local ``/etc/hosts`` file
 * It is possible to customize ``testbed-gx-iam.osism.test``, for this purpose add
   ``PARAMS="-var endpoint=somehost.example.com"``
 * It is possible to import an existing floating IP adress

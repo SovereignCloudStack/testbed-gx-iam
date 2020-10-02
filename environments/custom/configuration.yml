@@ -1,4 +1,18 @@
 ---
-# Dummy variable to avoid error because ansible does not recognize the
-# file as a good configuration file when no variable in it.
-dummy:
+##########################
+# traefik
+
+docker_registry_traefik: index.docker.io
+
+traefik_configuration_directory: /opt/traefik/configuration
+traefik_docker_compose_directory: /opt/traefik
+
+traefik_network: 172.30.100.0/28
+traefik_container_name: traefik
+
+traefik_host: "{{ hostvars[inventory_hostname]['ansible_' + console_interface]['ipv4']['address'] }}"
+
+traefik_tag: 2.3
+traefik_image: "{{ docker_registry_traefik }}/traefik:{{ traefik_tag }}"
+
+traefik_acme_email: acme@okeanos.xyz

@@ -1,0 +1,27 @@
+---
+api:
+  dashboard: false
+
+entryPoints:
+  http:
+    address: ":80"
+  https:
+    address: ":443"
+  keycloak:
+    address: ":8170"
+  keystone_public:
+    address: ":5000"
+  keystone_admin:
+    address: ":35357"
+
+providers:
+  file:
+    filename: "etc/traefik/services.yml"
+
+certificatesResolvers:
+  http:
+    acme:
+      email: {{ traefik_acme_email }}
+      storage: /etc/traefik/acme/acme.json
+      httpChallenge:
+        entryPoint: http
