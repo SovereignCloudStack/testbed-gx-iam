@@ -20,7 +20,7 @@
       {
         "type": "HTTP_OIDC_ISS",
         "any_one_of": [
-          "http://testbed-iam.osism.test:8170/auth/realms/keystone"
+          "http://testbed-gx-iam.osism.test:8170/auth/realms/keystone"
         ]
       }
     ]

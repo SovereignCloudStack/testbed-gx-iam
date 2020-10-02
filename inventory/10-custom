@@ -2,4 +2,4 @@
 # custom host groups
 
 [testbed-manager]
-testbed-iam-manager.osism.test
+testbed-gx-iam-manager.osism.test

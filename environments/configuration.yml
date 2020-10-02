@@ -8,7 +8,7 @@ configuration_type: git
 configuration_git_version: master
 configuration_git_host: github.com
 configuration_git_port: 443
-configuration_git_repository: SovereignCloudStack/testbed-iam.git
+configuration_git_repository: SovereignCloudStack/testbed-gx-iam.git
 configuration_git_protocol: https
 
 ##########################
@@ -54,7 +54,7 @@ resolvconf_package: ""
 
 hosts_type: template
 hosts_additional_entries:
-  testbed-iam.osism.test: 192.168.16.5
+  testbed-gx-iam.osism.test: 192.168.16.5
 
 ##########################
 # common
