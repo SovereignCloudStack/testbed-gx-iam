@@ -15,13 +15,13 @@ Usage
 =====
 
 * Create ``clouds.yaml`` and ``secure.yaml`` in the ``terraform`` directory
-* Execute ``make deploy ENVIRONMENT=betacloud`` within the ``terraform`` directory
+* Execute ``make ENVIRONMENT=betacloud deploy`` within the ``terraform`` directory
   (``betacloud`` is replaced with the CSP to be used)
-* The progress of the deployment can be checked with ``make console ENVIRONMENT=betacloud``
-* After completion of the deployment a login via ``make ssh ENVIRONMENT=betacloud``
+* The progress of the deployment can be checked with ``make ENVIRONMENT=betacloud log``
+* After completion of the deployment a login via ``make ENVIRONMENT=betacloud login``
   is possible
 * For access to the web interfaces and API endpoints a tunnel can be created with
-  ``make sshuttle ENVIRONMENT=betacloud`` (https://github.com/sshuttle/sshuttle must
+  ``make ENVIRONMENT=betacloud tunnel`` (https://github.com/sshuttle/sshuttle must
   be installed)
 * Add ``192.168.16.5 testbed-gx-iam.osism.test`` to your local ``/etc/hosts`` file
 * It is possible to customize ``testbed-gx-iam.osism.test``, for this purpose add
@@ -30,7 +30,7 @@ Usage
 
   .. code-block:: console
 
-     $ make attach ENVIRONMENT=betacloud PARAMS=4b041998-7c8d-4058-af01-f164e89c10bc
+     $ make ENVIRONMENT=betacloud attach PARAMS=4b041998-7c8d-4058-af01-f164e89c10bc
      openstack_networking_floatingip_v2.manager_floating_ip: Importing from ID "4b041998-7c8d-4058-af01-f164e89c10bc"...
      openstack_networking_floatingip_v2.manager_floating_ip: Import prepared!
        Prepared openstack_networking_floatingip_v2 for import
@@ -46,7 +46,7 @@ Usage
 
     .. code-block:: console
 
-       $ make detach ENVIRONMENT=betacloud
+       $ make ENVIRONMENT=betacloud detach
        Removed openstack_networking_floatingip_v2.manager_floating_ip
        Successfully removed 1 resource instance(s).
 
@@ -55,7 +55,7 @@ Webinterfaces & API endpoints
 
 The web interfaces and API endpoints can also be accessed externally via
 the assigned floating IP address of the instance (run
-``make endpoints ENVIRONMENT=betacloud``).
+``make ENVIRONMENT=betacloud endpoints``).
 
 ================ =========================== ========= ================
 Name             URL                         Username  Password

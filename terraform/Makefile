@@ -105,5 +105,6 @@ endpoints: init
 create: deploy
 login: ssh
 log: console
+tunnel: sshuttle
 
-PHONY: clean console attach detach sshuttle ssh dry-run list deploy watch openstack endpoints create log login
+PHONY: clean console attach detach sshuttle ssh dry-run list deploy watch openstack endpoints create log login tunnel
