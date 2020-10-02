@@ -23,7 +23,7 @@ Usage
 * For access to the web interfaces and API endpoints a tunnel can be created with
   ``make ENVIRONMENT=betacloud tunnel`` (https://github.com/sshuttle/sshuttle must
   be installed)
-* Add ``192.168.16.5 testbed-gx-iam.osism.test`` to your local ``/etc/hosts`` file
+* Add ``192.168.32.9 testbed-gx-iam.osism.test`` to your local ``/etc/hosts`` file
 * It is possible to customize ``testbed-gx-iam.osism.test``, for this purpose add
   ``PARAMS="-var endpoint=somehost.example.com"``
 * It is possible to import an existing floating IP adress
@@ -62,9 +62,9 @@ Name             URL                         Username  Password
 ================ =========================== ========= ================
 ARA              http://192.168.16.5:8120    ara       password
 Cockpit          https://192.168.16.5:8130   dragon    da5pahthaew2Pai2
-Horizon          http://192.168.16.9         admin     password
-Keycloak         http://192.168.16.5:8170    admin     password
-Keystone         http://192.168.16.9:35357   admin     password
-Keystone         http://192.168.16.9:5000    admin     password
+Horizon          http://192.168.32.9         admin     password
+Keycloak         http://192.168.32.9:8170    admin     password
+Keystone         http://192.168.32.9:35357   admin     password
+Keystone         http://192.168.32.9:5000    admin     password
 phpMyAdmin       http://192.168.16.5:8110    root      password
 ================ =========================== ========= ================

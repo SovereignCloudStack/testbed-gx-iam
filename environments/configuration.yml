@@ -56,7 +56,7 @@ resolvconf_package: ""
 
 hosts_type: template
 hosts_additional_entries:
-  testbed-gx-iam.osism.test: 192.168.16.5
+  testbed-gx-iam.osism.test: 192.168.32.9
 
 ##########################
 # common
@@ -73,13 +73,13 @@ cleanup_services:
 ##########################
 # kolla
 
-kolla_internal_vip_address: 192.168.16.9
+kolla_internal_vip_address: 192.168.32.9
 
 ##########################
 # repository
 
 repository_keys: []
-repository_key_ids: []
+repository_key_ids: {}
 
 repositories:
   - name: "{{ ansible_distribution_release }}"

@@ -89,6 +89,32 @@ resource "openstack_compute_secgroup_v2" "security_group_management" {
   }
 }
 
+resource "openstack_compute_secgroup_v2" "security_group_internal" {
+  name        = "${var.prefix}-internal"
+  description = "internal security group"
+
+  rule {
+    cidr        = "0.0.0.0/0"
+    ip_protocol = "tcp"
+    from_port   = 1
+    to_port     = 65535
+  }
+
+  rule {
+    cidr        = "0.0.0.0/0"
+    ip_protocol = "udp"
+    from_port   = 1
+    to_port     = 65535
+  }
+
+  rule {
+    cidr        = "0.0.0.0/0"
+    ip_protocol = "icmp"
+    from_port   = -1
+    to_port     = -1
+  }
+}
+
 ############
 # Networks #
 ############
@@ -113,11 +139,11 @@ resource "openstack_networking_subnet_v2" "subnet_management" {
 
 resource "openstack_networking_port_v2" "vip_port" {
   name       = "${var.prefix}-manager"
-  network_id = openstack_networking_network_v2.net_management.id
+  network_id = openstack_networking_network_v2.net_internal.id
 
   fixed_ip {
-    ip_address = "192.168.16.9"
-    subnet_id  = openstack_networking_subnet_v2.subnet_management.id
+    ip_address = "192.168.32.9"
+    subnet_id  = openstack_networking_subnet_v2.subnet_internal.id
   }
 }
 
@@ -134,4 +160,23 @@ resource "openstack_networking_router_v2" "router" {
 resource "openstack_networking_router_interface_v2" "router_interface" {
   router_id = openstack_networking_router_v2.router.id
   subnet_id = openstack_networking_subnet_v2.subnet_management.id
+}
+
+resource "openstack_networking_network_v2" "net_internal" {
+  name                    = "net-${var.prefix}-internal"
+  availability_zone_hints = [var.network_availability_zone]
+}
+
+resource "openstack_networking_subnet_v2" "subnet_internal" {
+  name        = "subnet-${var.prefix}-internal"
+  network_id  = openstack_networking_network_v2.net_internal.id
+  cidr        = "192.168.32.0/20"
+  ip_version  = 4
+  gateway_ip  = null
+  enable_dhcp = false
+
+  allocation_pool {
+    start = "192.168.47.200"
+    end   = "192.168.47.250"
+  }
 }

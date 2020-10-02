@@ -7,13 +7,3 @@ dotfiles_repo_version: master
 dotfiles_repo_local_destination: "~/dotfiles"
 dotfiles_files:
   - .tmux.conf
-
-##########################
-# patchman-client
-
-patchman_client_host: "{{ hostvars['testbed-gx-iam-manager.osism.test']['ansible_' + management_interface]['ipv4']['address'] }}"
-
-##########################
-# zabbix-agent
-
-zabbix_agent_server: "{{ hostvars['testbed-gx-iam-manager.osism.test']['ansible_' + management_interface]['ipv4']['address'] }}"
