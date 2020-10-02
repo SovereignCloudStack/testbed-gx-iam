@@ -4,7 +4,7 @@ variable "cloud_provider" {
 }
 
 variable "prefix" {
-  default = "testbed-iam"
+  default = "testbed-gx-iam"
   type    = string
 }
 
@@ -36,7 +36,7 @@ variable "public" {
 # testbed specific paramters
 
 variable "endpoint" {
-  default = "testbed-iam.osism.test"
+  default = "testbed-gx-iam.osism.test"
   type    = string
 }
 

@@ -24,7 +24,7 @@ kolla_enable_sanity_checks: "yes"
 ##########################################################
 # haproxy
 
-kolla_internal_fqdn: testbed-iam.osism.test
+kolla_internal_fqdn: testbed-gx-iam.osism.test
 
 kolla_enable_tls_external: "no"
 kolla_enable_tls_internal: "no"

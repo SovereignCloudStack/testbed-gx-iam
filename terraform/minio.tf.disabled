@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-testbed-iam"
+    bucket = "terraform-testbed-gx-iam"
     key = "terraform.tfstate"
     region = "main"
     force_path_style = true
