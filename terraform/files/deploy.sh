@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+sudo -iu dragon sh -c 'INTERACTIVE=false osism-run custom traefik'
+
 sudo -iu dragon sh -c 'INTERACTIVE=false osism-kolla deploy common'
 sudo -iu dragon sh -c 'INTERACTIVE=false osism-kolla deploy haproxy'
 sudo -iu dragon sh -c 'INTERACTIVE=false osism-kolla deploy mariadb'

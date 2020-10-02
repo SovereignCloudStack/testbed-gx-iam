@@ -1,0 +1,47 @@
+---
+http:
+  routers:
+    horizon:
+      entryPoints:
+        - http
+      service: horizon
+      rule: Host(`testbed-gx-iam.osism.test`)
+
+    keycloak:
+      entryPoints:
+        - keycloak
+      service: keycloak
+      rule: Host(`testbed-gx-iam.osism.test`)
+
+    keystone_admin:
+      entryPoints:
+        - keystone_admin
+      service: keystone_admin
+      rule: Host(`testbed-gx-iam.osism.test`)
+
+    keystone_public:
+      entryPoints:
+        - keystone_public
+      service: keystone_public
+      rule: Host(`testbed-gx-iam.osism.test`)
+
+  services:
+    horizon:
+      loadBalancer:
+        servers:
+          - url: http://{{ kolla_internal_vip_address }}:80/
+
+    keycloak:
+      loadBalancer:
+        servers:
+          - url: http://{{ kolla_internal_vip_address }}:8170/
+
+    keystone_admin:
+      loadBalancer:
+        servers:
+          - url: http://{{ kolla_internal_vip_address }}:35357/
+
+    keystone_public:
+      loadBalancer:
+        servers:
+          - url: http://{{ kolla_internal_vip_address }}:5000/

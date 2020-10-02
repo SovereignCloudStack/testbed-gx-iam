@@ -1,0 +1,32 @@
+---
+version: '3.5'
+
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:2.3
+    restart: unless-stopped
+    ports:
+      - "{{ traefik_host }}:80:80"
+      - "{{ traefik_host }}:443:443"
+      - "{{ traefik_host }}:5000:5000"
+      - "{{ traefik_host }}:8170:8170"
+      - "{{ traefik_host }}:35357:35357"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /opt/traefik/configuration/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /opt/traefik/configuration/services.yml:/etc/traefik/services.yml:ro
+      - acme:/etc/traefik/acme
+    labels:
+      - "traefik.enable=true"
+
+volumes:
+  acme:
+
+networks:
+ default:
+   driver: bridge
+   ipam:
+     driver: default
+     config:
+       - subnet:  {{ traefik_network }}
