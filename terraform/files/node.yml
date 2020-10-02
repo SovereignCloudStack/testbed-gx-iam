@@ -40,6 +40,7 @@
 
     # ansible-repository
     repository_cache_valid_time: 0
+    repository_keys: []
     repository_key_ids: {}
     repositories:
       - name: "{{ ansible_distribution_release }}"
