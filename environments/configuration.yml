@@ -23,6 +23,8 @@ ceph_docker_registry: index.docker.io
 docker_registry: index.docker.io
 docker_registry_ansible: quay.io
 
+docker_configure_repository: yes
+
 ##########################
 # docker-compose
 
@@ -72,3 +74,19 @@ cleanup_services:
 # kolla
 
 kolla_internal_vip_address: 192.168.16.9
+
+##########################
+# repository
+
+repository_keys: []
+repository_key_ids: []
+
+repositories:
+  - name: "{{ ansible_distribution_release }}"
+    repository: "deb [arch=amd64] http://de.archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }} main restricted universe multiverse"
+  - name: "{{ ansible_distribution_release }}-backports"
+    repository: "deb [arch=amd64] http://de.archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-backports main restricted universe multiverse"
+  - name: "{{ ansible_distribution_release }}-security"
+    repository: "deb [arch=amd64] http://de.archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-security main restricted universe multiverse"
+  - name: "{{ ansible_distribution_release }}-updates"
+    repository: "deb [arch=amd64] http://de.archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-updates main restricted universe multiverse"
