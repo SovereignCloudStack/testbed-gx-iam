@@ -3,3 +3,5 @@
 #       Can be changed if Ussuri images are available.
 
 zun_tag: latest
+
+horizon_image: "{{ docker_registry }}/sovereigncloudstack/horizon"
