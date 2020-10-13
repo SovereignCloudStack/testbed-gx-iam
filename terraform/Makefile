@@ -98,7 +98,7 @@ endpoints: init
 	echo "| Cockpit    | https://$$MANAGER_ADDRESS:8130 |"; \
 	echo "| Horizon    | https://$$MANAGER_ADDRESS      |"; \
 	echo "| Keycloak   | https://$$MANAGER_ADDRESS:8170 |"; \
-	echo "| Keystone   | http://$$MANAGER_ADDRESS:5000  |"; \
+	echo "| Keystone   | https://$$MANAGER_ADDRESS:5000 |"; \
 	echo "| phpMyAdmin | http://$$MANAGER_ADDRESS:8110  |";
 
 create: deploy
