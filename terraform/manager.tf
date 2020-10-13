@@ -130,7 +130,7 @@ write_files:
 
       # NOTE: Setup the keystone realm
       sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=keystone -s enabled=true -s sslRequired=NONE -s displayName='Keystone realm'"
-      sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create clients -r keystone -s clientId=keystone -s 'redirectUris=[\"http://${var.endpoint}:5000/*\"]' -s clientAuthenticatorType=client-secret -s secret=11111111-1111-1111-1111-111111111111 -s implicitFlowEnabled=true"
+      sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create clients -r keystone -s clientId=keystone -s 'redirectUris=[\"https://${var.endpoint}:5000/*\"]' -s clientAuthenticatorType=client-secret -s secret=11111111-1111-1111-1111-111111111111 -s implicitFlowEnabled=true"
 
       sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create users -s username=keycloak -s enabled=true -s email=keycloak@osism.test -r keystone"
       sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh set-password -r keystone --username keycloak --new-password password"
