@@ -145,7 +145,7 @@ write_files:
       openstack --os-cloud admin role add --group keycloak_users --group-domain keycloak --domain keycloak _member_
       openstack --os-cloud admin role add --group keycloak_users --group-domain keycloak --project keycloak_project --project-domain keycloak _member_
 
-      openstack --os-cloud admin identity provider create --remote-id http://${var.endpoint}:8170/auth/realms/keystone keycloak
+      openstack --os-cloud admin identity provider create --remote-id https://${var.endpoint}:8170/auth/realms/keystone keycloak
       openstack --os-cloud admin mapping create --rules /configuration/files/keycloak_rules.json keycloak_mapping
       openstack --os-cloud admin federation protocol create mapped --mapping keycloak_mapping --identity-provider keycloak
     path: /root/bootstrap.sh
