@@ -9,14 +9,14 @@ entryPoints:
     address: ":443"
   keycloak:
     address: ":8170"
-  keystone_public:
+  keystone-public:
     address: ":5000"
-  keystone_admin:
+  keystone-admin:
     address: ":35357"
 
 providers:
   file:
-    filename: "etc/traefik/services.yml"
+    filename: "/etc/traefik/services.yml"
 
 certificatesResolvers:
   http:
