@@ -72,6 +72,9 @@ enable_osprofiler: "no"
 # logging
 enable_central_logging: "no"
 
+# database
+database_address: "{{ kolla_internal_vip_address }}"
+
 # horizon
 horizon_backend_database: "yes"
 
