@@ -53,18 +53,6 @@ Usage
 Webinterfaces & API endpoints
 =============================
 
-The web interfaces and API endpoints can also be accessed externally via
+The web interfaces and API endpoints can be accessed externally via
 the assigned floating IP address of the instance (run
 ``make ENVIRONMENT=betacloud endpoints``).
-
-================ =========================== ========= ================
-Name             URL                         Username  Password
-================ =========================== ========= ================
-ARA              http://192.168.16.5:8120    ara       password
-Cockpit          https://192.168.16.5:8130   dragon    da5pahthaew2Pai2
-Horizon          http://192.168.32.9         admin     password
-Keycloak         http://192.168.32.9:8170    admin     password
-Keystone         http://192.168.32.9:35357   admin     password
-Keystone         http://192.168.32.9:5000    admin     password
-phpMyAdmin       http://192.168.16.5:8110    root      password
-================ =========================== ========= ================

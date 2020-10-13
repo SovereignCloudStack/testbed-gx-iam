@@ -1,6 +1,11 @@
 ---
 http:
   middlewares:
+    https-redirect-horizon:
+      redirectscheme:
+        scheme: https
+        port: 443
+
     https-redirect-keycloak:
       redirectscheme:
         scheme: https
@@ -8,10 +13,14 @@ http:
 
   routers:
     horizon:
-      service: horizon
+      service: horizon 
       rule: Host(`testbed-gx-iam.osism.test`)
       entryPoints:
-        - http
+        - https
+      middlewares:
+        - https-redirect-horizon
+      tls:
+        certresolver: http
 
     keycloak:
       service: keycloak
