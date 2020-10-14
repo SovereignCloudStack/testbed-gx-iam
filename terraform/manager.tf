@@ -41,16 +41,17 @@ resource "openstack_compute_instance_v2" "manager_server" {
   image_name        = var.image
   flavor_name       = var.flavor_manager
   key_pair          = openstack_compute_keypair_v2.key.name
+  config_drive      = true
 
   network { port = openstack_networking_port_v2.manager_port_management.id }
   network { port = openstack_networking_port_v2.manager_port_internal.id }
 
   user_data = <<-EOT
 #cloud-config
-package_update: true
+network:
+  config: disabled
+package_update: false
 package_upgrade: false
-packages:
-  - ifupdown
 write_files:
   - content: |
       import subprocess
@@ -98,10 +99,6 @@ write_files:
   - content: |
       ${indent(6, file("files/manager-part-2.yml"))}
     path: /opt/manager-part-2.yml
-    permissions: '0644'
-  - content: |
-      ${indent(6, file("files/manager-part-3.yml"))}
-    path: /opt/manager-part-3.yml
     permissions: '0644'
   - content: |
       ${indent(6, file("files/node.sh"))}
