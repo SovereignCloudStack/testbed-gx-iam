@@ -12,3 +12,5 @@ WEBSSO_IDP_MAPPING = {
     "keycloak_openid": ("keycloak", "mapped")
 }
 WEBSSO_INITIAL_CHOICE = "credentials"
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
