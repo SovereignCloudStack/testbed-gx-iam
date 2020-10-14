@@ -71,12 +71,12 @@ http:
     keystone-admin:
       loadBalancer:
         servers:
-          - url: http://{{ kolla_internal_vip_address }}:35357/
+          - url: http://{{ hostvars[inventory_hostname]['ansible_' + management_interface]['ipv4']['address'] }}:35357/
 
     keystone-public:
       loadBalancer:
         servers:
-          - url: http://{{ kolla_internal_vip_address }}:5000/
+          - url: http://{{ hostvars[inventory_hostname]['ansible_' + management_interface]['ipv4']['address'] }}:5000/
 
     keycloak:
       loadBalancer:
