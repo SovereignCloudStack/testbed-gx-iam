@@ -172,7 +172,6 @@ resource "openstack_networking_subnet_v2" "subnet_internal" {
   network_id  = openstack_networking_network_v2.net_internal.id
   cidr        = "192.168.32.0/20"
   ip_version  = 4
-  gateway_ip  = null
   enable_dhcp = false
 
   allocation_pool {
