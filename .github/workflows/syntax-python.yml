@@ -4,9 +4,11 @@ name: Check python syntax
 on:
   push:
     paths:
+      - '.github/workflows/syntax-python.yml'
       - '**.py'
   pull_request:
     paths:
+      - '.github/workflows/syntax-python.yml'
       - '**.py'
 
 jobs:

@@ -4,9 +4,11 @@ name: Check json syntax
 on:
   push:
     paths:
+      - '.github/workflows/syntax-json.yml'
       - '**.json'
   pull_request:
     paths:
+      - '.github/workflows/syntax-json.yml'
       - '**.json'
 
 jobs:
@@ -16,6 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: apt-get install -y jsonlint
-      - run: jsonlint **/*.json
-      - run: jsonlint .github/**/*.json
+      - run: |
+          sudo apt-get install -y jsonlint zsh
+          zsh -c 'jsonlint-php **/*.json'
+          zsh -c 'jsonlint-php .github/**/*.json'
