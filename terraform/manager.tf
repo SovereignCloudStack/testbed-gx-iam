@@ -142,8 +142,8 @@ write_files:
       openstack --os-cloud admin domain create keycloak
       openstack --os-cloud admin project create  --domain keycloak keycloak_project
       openstack --os-cloud admin group create keycloak_users --domain keycloak
-      openstack --os-cloud admin role add --group keycloak_users --group-domain keycloak --domain keycloak _member_
-      openstack --os-cloud admin role add --group keycloak_users --group-domain keycloak --project keycloak_project --project-domain keycloak _member_
+      openstack --os-cloud admin role add --group keycloak_users --group-domain keycloak --domain keycloak member
+      openstack --os-cloud admin role add --group keycloak_users --group-domain keycloak --project keycloak_project --project-domain keycloak member
 
       openstack --os-cloud admin identity provider create --remote-id https://${var.endpoint}:8170/auth/realms/keystone keycloak
       openstack --os-cloud admin mapping create --rules /configuration/files/keycloak_rules.json keycloak_mapping
