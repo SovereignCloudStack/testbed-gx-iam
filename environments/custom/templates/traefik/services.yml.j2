@@ -66,7 +66,7 @@ http:
     horizon:
       loadBalancer:
         servers:
-          - url: http://{{ hostvars[inventory_hostname]['ansible_' + console_interface]['ipv4']['address'] }}:80/
+          - url: http://{{ hostvars[inventory_hostname]['ansible_' + management_interface]['ipv4']['address'] }}:80/
 
     keystone-admin:
       loadBalancer:
