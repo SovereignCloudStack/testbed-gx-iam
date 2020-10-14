@@ -56,7 +56,7 @@ resolvconf_package: ""
 
 hosts_type: template
 hosts_additional_entries:
-  testbed-gx-iam.osism.test: 192.168.32.9
+  testbed-gx-iam.osism.test: "{{ hostvars[inventory_hostname]['ansible_' + console_interface]['ipv4']['address'] }}"
 
 ##########################
 # common
