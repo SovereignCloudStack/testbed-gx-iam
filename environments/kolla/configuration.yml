@@ -32,6 +32,10 @@ kolla_enable_tls_internal: "no"
 haproxy_client_timeout: 5m
 haproxy_server_timeout: 5m
 
+admin_protocol: https
+internal_protocol: https
+public_protocol: https
+
 ##########################################################
 # networking
 
@@ -71,6 +75,9 @@ enable_osprofiler: "no"
 
 # logging
 enable_central_logging: "no"
+
+# database
+database_address: "{{ kolla_internal_vip_address }}"
 
 # horizon
 horizon_backend_database: "yes"
