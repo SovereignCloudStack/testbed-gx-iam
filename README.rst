@@ -56,3 +56,22 @@ Webinterfaces & API endpoints
 The web interfaces and API endpoints can be accessed externally via
 the assigned floating IP address of the instance (run
 ``make ENVIRONMENT=betacloud endpoints``).
+
+Notes
+=====
+
+Keystone mapping combinations
+-----------------------------
+
+https://docs.openstack.org/keystone/latest/admin/federation/mapping_combinations.html
+
+The mappings can be found in the file
+``/opt/configuration/environments/openstack/files/keycloak_rules.json``.
+
+To update the mapping on the Keystone, execute the following command.
+
+.. code-block:: console
+
+   $ openstack --os-cloud admin mapping set \
+       --rules /configuration/files/keycloak_rules.json \
+       keycloak_mapping
