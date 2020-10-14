@@ -156,8 +156,8 @@ write_files:
       done
 
       for userid in $(seq 1 3); do
+          kuserid=$(sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh get users -q username=keycloak$userid --fields id -r keystone" | jq -r "first | .id")
           for groupid in $(seq 1 3); do
-              kuserid=$(sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh get users -q username=keycloak$userid --fields id -r keystone" | jq -r "first | .id")
               kgroupid=$(sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh get groups -q name=keycloak$groupid --fields id -r keystone" | jq -r "first | .id")
               sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh update users/$kuserid/groups/$kgroupid -r keystone"
           done
