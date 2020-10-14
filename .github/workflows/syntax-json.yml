@@ -1,0 +1,21 @@
+---
+name: Check json syntax
+
+on:
+  push:
+    paths:
+      - '**.json'
+  pull_request:
+    paths:
+      - '**.json'
+
+jobs:
+  default:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: apt-get install -y jsonlint
+      - run: jsonlint **/*.json
+      - run: jsonlint .github/**/*.json
