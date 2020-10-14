@@ -6,7 +6,7 @@
           "domain": {
             "name": "keycloak"
           },
-          "name": "keycloak_users"
+          "name": "keycloak_all"
         },
         "user": {
           "name": "{0}"
@@ -16,6 +16,105 @@
     "remote": [
       {
         "type": "OIDC-preferred_username"
+      },
+      {
+        "type": "HTTP_OIDC_ISS",
+        "any_one_of": [
+          "https://testbed-gx-iam.osism.test:8170/auth/realms/keystone"
+        ]
+      }
+    ]
+  },
+  {
+    "local": [
+      {
+        "group": {
+          "domain": {
+            "name": "keycloak"
+          },
+          "name": "keycloak1"
+        },
+        "user": {
+          "name": "{0}"
+        }
+      }
+    ],
+    "remote": [
+      {
+        "type": "OIDC-preferred_username"
+      },
+      {
+        "type": "OIDC-groups",
+        "any_one_of": [
+          ".*keycloak1.*"
+        ],
+        "regex": true
+      },
+      {
+        "type": "HTTP_OIDC_ISS",
+        "any_one_of": [
+          "https://testbed-gx-iam.osism.test:8170/auth/realms/keystone"
+        ]
+      }
+    ]
+  },
+  {
+    "local": [
+      {
+        "group": {
+          "domain": {
+            "name": "keycloak"
+          },
+          "name": "keycloak2"
+        },
+        "user": {
+          "name": "{0}"
+        }
+      }
+    ],
+    "remote": [
+      {
+        "type": "OIDC-preferred_username"
+      },
+      {
+        "type": "OIDC-groups",
+        "any_one_of": [
+          ".*keycloak2.*"
+        ],
+        "regex": true
+      },
+      {
+        "type": "HTTP_OIDC_ISS",
+        "any_one_of": [
+          "https://testbed-gx-iam.osism.test:8170/auth/realms/keystone"
+        ]
+      }
+    ]
+  }
+  {
+    "local": [
+      {
+        "group": {
+          "domain": {
+            "name": "keycloak"
+          },
+          "name": "keycloak3"
+        },
+        "user": {
+          "name": "{0}"
+        }
+      }
+    ],
+    "remote": [
+      {
+        "type": "OIDC-preferred_username"
+      },
+      {
+        "type": "OIDC-groups",
+        "any_one_of": [
+          ".*keycloak3.*"
+        ],
+        "regex": true
       },
       {
         "type": "HTTP_OIDC_ISS",

@@ -129,18 +129,57 @@ write_files:
       sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=keystone -s enabled=true -s sslRequired=NONE -s displayName='Keystone realm'"
       sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create clients -r keystone -s clientId=keystone -s 'redirectUris=[\"https://${var.endpoint}:5000/*\"]' -s clientAuthenticatorType=client-secret -s secret=11111111-1111-1111-1111-111111111111 -s implicitFlowEnabled=true"
 
-      sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create users -s username=keycloak -s enabled=true -s email=keycloak@osism.test -r keystone"
-      sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh set-password -r keystone --username keycloak --new-password password"
+      kclientid=$(sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh get clients -q clientId=keystone --fields id -r keystone" | jq -r "first | .id")
+      sudo -iu dragon sh -c "docker exec -i keycloak /opt/jboss/keycloak/bin/kcadm.sh create clients/$kclientid/protocol-mappers/models -r keystone -f -" << 'EOF'
+      {
+        "name": "groups",
+        "protocol": "openid-connect",
+        "protocolMapper": "oidc-group-membership-mapper",
+        "consentRequired" : false,
+        "config": {
+          "full.path" : "true",
+          "id.token.claim" : "true",
+          "access.token.claim" : "true",
+          "claim.name" : "groups",
+          "userinfo.token.claim" : "true"
+        }
+      }
+      EOF
+
+      for userid in $(seq 1 3); do
+          sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create users -s username=keycloak$userid -s enabled=true -s email=keycloak$userid@osism.test -r keystone"
+          sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh set-password -r keystone --username keycloak$userid --new-password password"
+      done
+
+      for groupid in $(seq 1 3); do
+          sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh create groups -s name=keycloak$groupid -r keystone"
+      done
+
+      for userid in $(seq 1 3); do
+          for groupid in $(seq 1 3); do
+              kuserid=$(sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh get users -q username=keycloak$userid --fields id -r keystone" | jq -r "first | .id")
+              kgroupid=$(sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh get groups -q name=keycloak$groupid --fields id -r keystone" | jq -r "first | .id")
+              sudo -iu dragon sh -c "docker exec keycloak /opt/jboss/keycloak/bin/kcadm.sh update users/$kuserid/groups/$kgroupid -r keystone"
+          done
+      done
 
       # NOTE: https://jdennis.fedorapeople.org/doc/rhsso-tripleo-federation/html/rhsso-tripleo-federation.html
 
       # FIXME: Migrate this to environments/openstack/playbook-bootstrap-keystone.yml
       # NOTE: Bootstrap keystone
       openstack --os-cloud admin domain create keycloak
-      openstack --os-cloud admin project create  --domain keycloak keycloak_project
-      openstack --os-cloud admin group create keycloak_users --domain keycloak
-      openstack --os-cloud admin role add --group keycloak_users --group-domain keycloak --domain keycloak member
-      openstack --os-cloud admin role add --group keycloak_users --group-domain keycloak --project keycloak_project --project-domain keycloak member
+
+      openstack --os-cloud admin project create --domain keycloak keycloak_common
+      openstack --os-cloud admin group create keycloak_all --domain keycloak
+      openstack --os-cloud admin role add --group keycloak_all --group-domain keycloak --domain keycloak member
+      openstack --os-cloud admin role add --group keycloak_all --group-domain keycloak --project keycloak_common --project-domain keycloak member
+
+      for project in $(seq 1 3); do
+          openstack --os-cloud admin project create --domain keycloak keycloak$project
+          openstack --os-cloud admin group create keycloak$project --domain keycloak
+          openstack --os-cloud admin role add --group keycloak$project --group-domain keycloak --domain keycloak member
+          openstack --os-cloud admin role add --group keycloak$project --group-domain keycloak --project keycloak$project --project-domain keycloak member
+      done
 
       openstack --os-cloud admin identity provider create --remote-id https://${var.endpoint}:8170/auth/realms/keystone keycloak
       openstack --os-cloud admin mapping create --rules /configuration/files/keycloak_rules.json keycloak_mapping
