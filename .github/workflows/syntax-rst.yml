@@ -4,9 +4,11 @@ name: Check rst syntax
 on:
   push:
     paths:
+      - '.github/workflows/syntax-rst.yml'
       - '**.rst'
   pull_request:
     paths:
+      - '.github/workflows/syntax-rst.yml'
       - '**.rst'
 
 jobs:
