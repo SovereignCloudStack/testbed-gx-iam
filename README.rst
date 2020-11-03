@@ -57,6 +57,23 @@ The web interfaces and API endpoints can be accessed externally via
 the assigned floating IP address of the instance (run
 ``make ENVIRONMENT=betacloud endpoints``).
 
+Accounts
+========
+
++---------------+----------------+-------------------+---------------------------+
+| **Service**   | **Username**   | **Password**      | **Note**                  |
++---------------+----------------+-------------------+---------------------------+
+| Keycloak      | admin          | password          |                           |
++---------------+----------------+-------------------+---------------------------+
+| Keystone      | admin          | password          | Credentials               |
++---------------+----------------+-------------------+---------------------------+
+| Keystone      | keycloak1      | password          | Keycloak                  |
++---------------+----------------+-------------------+---------------------------+
+| Keystone      | keycloak2      | password          | Keycloak                  |
++---------------+----------------+-------------------+---------------------------+
+| Keystone      | keycloak3      | password          | Keycloak                  |
++---------------+----------------+-------------------+---------------------------+
+
 Notes
 =====
 
