@@ -5,8 +5,8 @@ source /etc/os-release
 if [[ $UBUNTU_CODENAME == "focal" ]]; then
     # NOTE: Cloud Init may set a wrong default route. This is repaired manually here.
     # FIXME: Find better/prettier solution for it.
-    ip route del default via 192.168.32.1 || exit 0
-    ip route add default via 192.168.16.1 || exit 0
+    ip route del default via 192.168.32.1 || true
+    ip route add default via 192.168.16.1 || true
 fi
 
 # NOTE: Because DNS queries don't always work directly at the beginning a
